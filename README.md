@@ -27,6 +27,19 @@ add a changelog note, and merge to `main`.
 GitHub Packages requires authentication **even to read**, so each developer and each
 build machine needs a GitHub token with the `read:packages` scope configured for Maven.
 
+### Quick start — run the setup script
+
+```bash
+./setup-maven-github-packages.sh
+```
+
+It uses your `gh` CLI login if you have one (adding the `read:packages` scope if
+needed), otherwise prompts for a token; writes the `<server>` entry to
+`~/.m2/settings.xml` (backing up anything already there, never printing the token,
+locking the file to `0600`); and verifies by resolving the BOM. Safe to re-run.
+
+If you'd rather do it by hand, the manual steps are below.
+
 ### 1. Create a token
 A classic Personal Access Token with **`read:packages`** (Settings → Developer settings
 → Personal access tokens). Read-only; it cannot push code.
