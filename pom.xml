@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.maritrace</groupId>
+  <artifactId>maritrace-dependencies</artifactId>
+  <version>0.0.1</version>
+  <packaging>pom</packaging>
+
+  <name>maritrace-dependencies</name>
+  <description>
+    Shared dependency-management BOM for the MariTrace Java estate. Services import this
+    in their own dependencyManagement and drop the explicit versions of the libraries
+    managed here, so a single bump in one place clears the corresponding advisories across
+    every consuming service. Versions below are the lowest that clear all open Dependabot
+    advisories for each library as of August 2026.
+  </description>
+  <url>https://github.com/MariTrace/maritrace_dependancies_maritrace-dependencies</url>
+
+  <scm>
+    <connection>scm:git:https://github.com/MariTrace/maritrace_dependancies_maritrace-dependencies.git</connection>
+    <url>https://github.com/MariTrace/maritrace_dependancies_maritrace-dependencies</url>
+  </scm>
+
+  <properties>
+    <mt.jackson.version>2.18.9</mt.jackson.version>
+    <mt.log4j.version>2.25.4</mt.log4j.version>
+    <mt.postgresql.version>42.7.12</mt.postgresql.version>
+    <mt.kafka.version>3.9.2</mt.kafka.version>
+    <mt.commons-io.version>2.14.0</mt.commons-io.version>
+    <mt.guava.version>33.4.8-jre</mt.guava.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <!-- Jackson: import the official BOM so every jackson-* module stays on one version. -->
+      <dependency>
+        <groupId>com.fasterxml.jackson</groupId>
+        <artifactId>jackson-bom</artifactId>
+        <version>${mt.jackson.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- Log4j: import its BOM so log4j-core / log4j-api stay aligned. -->
+      <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-bom</artifactId>
+        <version>${mt.log4j.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- Single-artifact pins -->
+      <dependency>
+        <groupId>org.postgresql</groupId>
+        <artifactId>postgresql</artifactId>
+        <version>${mt.postgresql.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.kafka</groupId>
+        <artifactId>kafka-clients</artifactId>
+        <version>${mt.kafka.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>commons-io</groupId>
+        <artifactId>commons-io</artifactId>
+        <version>${mt.commons-io.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${mt.guava.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Packages — MariTrace</name>
+      <url>https://maven.pkg.github.com/MariTrace/maritrace_dependancies_maritrace-dependencies</url>
+    </repository>
+  </distributionManagement>
+</project>
