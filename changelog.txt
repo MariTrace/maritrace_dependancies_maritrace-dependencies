@@ -1,3 +1,17 @@
+0.0.2
+
+- Raise jackson to 2.21.2 (via jackson-bom) and commons-io to 2.20.0.
+- Reason: Spring Boot 4.0.5 - now used by four of the api services - already
+  ships jackson 2.21.2 and commons-io 2.20.0. At the old pins the BOM was
+  BEHIND the platform, so importing it into those services would have
+  DOWNGRADED both libraries. A BOM that lowers a version is worse than no BOM.
+- Principle going forward: this BOM must only ever raise a version, never
+  lower one. Before adopting it in a service, compare its pins against what
+  that service already resolves (mvn dependency:list) - Spring Boot moves
+  faster than this file, so the check has to be repeated, not assumed.
+- postgresql (42.7.12), kafka-clients (3.9.2), log4j (2.25.4) and guava
+  (33.4.8-jre) are unchanged - all already at or above what Boot 4.0.5 ships.
+
 0.0.1
 
 - Initial shared dependency-management BOM for the MariTrace Java estate.

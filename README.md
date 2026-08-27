@@ -79,7 +79,7 @@ The `<repository>` `id` must match the `<server>` `id` in `settings.xml`.
     <dependency>
       <groupId>com.maritrace</groupId>
       <artifactId>maritrace-dependencies</artifactId>
-      <version>0.0.1</version>
+      <version>0.0.2</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -126,11 +126,19 @@ services use.
 
 | Library | Version | Why |
 |---|---|---|
-| `com.fasterxml.jackson:*` (via `jackson-bom`) | 2.18.9 | clears databind polymorphic-typing + related advisories |
+| `com.fasterxml.jackson:*` (via `jackson-bom`) | 2.21.2 | matches what Spring Boot 4.0.5 ships, so the BOM never downgrades it |
 | `org.apache.logging.log4j:*` (via `log4j-bom`) | 2.25.4 | current, advisory-clear |
 | `org.postgresql:postgresql` | 42.7.12 | SCRAM PBKDF2 DoS (CVE-2026-42198) + later |
 | `org.apache.kafka:kafka-clients` | 3.9.2 | advisory-clear |
-| `commons-io:commons-io` | 2.14.0 | advisory-clear |
+| `commons-io:commons-io` | 2.20.0 | matches what Spring Boot 4.0.5 ships, so the BOM never downgrades it |
 | `com.google.guava:guava` | 33.4.8-jre | advisory-clear |
 
 Add a library here when it's shared by several services and needs central control.
+
+**This BOM must only ever raise a version, never lower one.** Spring Boot manages many
+of these libraries itself and moves faster than this file, so a pin that was ahead of
+the platform last year can fall behind it. Before adopting the BOM in a service — and
+before trusting that it took effect — compare against what that service already
+resolves with `mvn dependency:list`. On Spring Boot services the outcome is not uniform:
+a BOM pin can win for one library and lose to the Boot parent for another in the same
+pom, so check rather than assume.
