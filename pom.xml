@@ -6,7 +6,7 @@
 
   <groupId>com.maritrace</groupId>
   <artifactId>maritrace-dependencies</artifactId>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <packaging>pom</packaging>
 
   <name>maritrace-dependencies</name>
@@ -25,11 +25,11 @@
   </scm>
 
   <properties>
-    <mt.jackson.version>2.18.9</mt.jackson.version>
+    <mt.jackson.version>2.21.2</mt.jackson.version>
     <mt.log4j.version>2.25.4</mt.log4j.version>
     <mt.postgresql.version>42.7.12</mt.postgresql.version>
     <mt.kafka.version>3.9.2</mt.kafka.version>
-    <mt.commons-io.version>2.14.0</mt.commons-io.version>
+    <mt.commons-io.version>2.20.0</mt.commons-io.version>
     <mt.guava.version>33.4.8-jre</mt.guava.version>
   </properties>
 

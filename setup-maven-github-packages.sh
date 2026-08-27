@@ -13,7 +13,7 @@ set -euo pipefail
 
 SERVER_ID="github-maritrace"
 PKG_URL="https://maven.pkg.github.com/MariTrace/maritrace_dependancies_maritrace-dependencies"
-BOM_ARTIFACT="com.maritrace:maritrace-dependencies:0.0.1:pom"
+BOM_ARTIFACT="com.maritrace:maritrace-dependencies:0.0.2:pom"
 M2="${HOME}/.m2"
 SETTINGS="${M2}/settings.xml"
 
