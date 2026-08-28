@@ -6,7 +6,7 @@
 
   <groupId>com.maritrace</groupId>
   <artifactId>maritrace-dependencies</artifactId>
-  <version>0.0.3</version>
+  <version>0.0.4</version>
   <packaging>pom</packaging>
 
   <name>maritrace-dependencies</name>
@@ -36,6 +36,7 @@
     <mt.gson.version>2.14.0</mt.gson.version>
     <mt.zookeeper.version>3.9.5</mt.zookeeper.version>
     <mt.junit.version>4.13.2</mt.junit.version>
+    <mt.micrometer.version>1.15.12</mt.micrometer.version>
   </properties>
 
   <dependencyManagement>
@@ -54,6 +55,19 @@
         <groupId>org.apache.logging.log4j</groupId>
         <artifactId>log4j-bom</artifactId>
         <version>${mt.log4j.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- Micrometer: import its BOM so every micrometer-* module stays aligned.
+           REQUIRES A PAIRED SOURCE CHANGE - see changelog. Micrometer 1.13 moved the
+           Prometheus registry from io.micrometer.prometheus to
+           io.micrometer.prometheusmetrics, so a service cannot move to 0.0.4 by
+           version alone; its imports must be renamed in the same commit. -->
+      <dependency>
+        <groupId>io.micrometer</groupId>
+        <artifactId>micrometer-bom</artifactId>
+        <version>${mt.micrometer.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
