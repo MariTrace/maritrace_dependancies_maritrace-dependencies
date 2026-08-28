@@ -80,7 +80,7 @@ The `<repository>` `id` must match the `<server>` `id` in `settings.xml`.
     <dependency>
       <groupId>com.maritrace</groupId>
       <artifactId>maritrace-dependencies</artifactId>
-      <version>0.0.3</version>
+      <version>0.0.4</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -138,6 +138,7 @@ services use.
 | `com.google.code.gson:gson` | 2.14.0 | advisory-clear |
 | `org.apache.zookeeper:zookeeper` | 3.9.5 | critical advisory; **see changelog before bumping a live consumer** |
 | `junit:junit` | 4.13.2 | advisory-clear; test scope only |
+| `io.micrometer:*` (via `micrometer-bom`) | 1.15.12 | CVE-2026-40984; **needs a paired source rename — see changelog** |
 
 Add a library here when it's shared by several services and needs central control.
 
