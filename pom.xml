@@ -6,7 +6,7 @@
 
   <groupId>com.maritrace</groupId>
   <artifactId>maritrace-dependencies</artifactId>
-  <version>0.0.2</version>
+  <version>0.0.3</version>
   <packaging>pom</packaging>
 
   <name>maritrace-dependencies</name>
@@ -31,6 +31,11 @@
     <mt.kafka.version>3.9.2</mt.kafka.version>
     <mt.commons-io.version>2.20.0</mt.commons-io.version>
     <mt.guava.version>33.4.8-jre</mt.guava.version>
+    <mt.json.version>20250517</mt.json.version>
+    <mt.commons-lang3.version>3.20.0</mt.commons-lang3.version>
+    <mt.gson.version>2.14.0</mt.gson.version>
+    <mt.zookeeper.version>3.9.5</mt.zookeeper.version>
+    <mt.junit.version>4.13.2</mt.junit.version>
   </properties>
 
   <dependencyManagement>
@@ -73,6 +78,35 @@
         <groupId>com.google.guava</groupId>
         <artifactId>guava</artifactId>
         <version>${mt.guava.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>${mt.json.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${mt.commons-lang3.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>${mt.gson.version}</version>
+      </dependency>
+
+      <!-- ZooKeeper and JUnit are managed here, but read the changelog before
+           bumping a service to 0.0.3: both cross a major boundary for some
+           consumers (zookeeper 3.4.x, junit 3.8.1) and are not drop-in there. -->
+      <dependency>
+        <groupId>org.apache.zookeeper</groupId>
+        <artifactId>zookeeper</artifactId>
+        <version>${mt.zookeeper.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${mt.junit.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

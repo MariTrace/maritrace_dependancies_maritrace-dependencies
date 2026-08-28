@@ -1,3 +1,32 @@
+0.0.3
+
+- Add five libraries: org.json:json 20250517, commons-lang3 3.20.0, gson 2.14.0,
+  zookeeper 3.9.5, junit 4.13.2.
+- Reason: after the estate-wide rollout, the remaining open Dependabot alerts had
+  concentrated almost entirely in libraries this BOM did NOT manage. On
+  nmea0183-parser the BOM cleared 32 of 35 alerts and the 3 survivors were
+  org.json and commons-lang3. These five cover the rest.
+
+- READ BEFORE BUMPING A SERVICE TO 0.0.3. Two of these cross a major boundary
+  for some consumers, and this BOM does not know which:
+
+  * zookeeper - 3 repos declare 3.4.11 (pipeline_v1 commons / data-api /
+    processing_coordinator); the other 2 are on 3.8.1. ZooKeeper 3.4 -> 3.9
+    crosses the 3.5 client rewrite. The client talks to a real ensemble, so
+    confirm the SERVER version before bumping a live consumer. data-api is the
+    only live one of the three.
+  * junit - 21 declarations are still on 3.8.1 (Maven archetype default).
+    4.13.2 retains the junit.framework compatibility layer, so 'extends
+    TestCase' still compiles, but it is a 3.x -> 4.x jump and the runner
+    differs. Test-scope only: no production exposure either way.
+
+- The other three (org.json, commons-lang3, gson) are low-risk, backward-compatible
+  jumps within a stable major line.
+
+- Note this BOM is pinned per repo, so publishing 0.0.3 changes NOTHING until a
+  repo bumps its import from 0.0.2. That is deliberate: it makes each consumer an
+  opt-in decision rather than an estate-wide surprise.
+
 0.0.2
 
 - Raise jackson to 2.21.2 (via jackson-bom) and commons-io to 2.20.0.

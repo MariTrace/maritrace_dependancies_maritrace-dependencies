@@ -5,8 +5,9 @@ Shared **dependency-management BOM** for the MariTrace Java estate.
 It pins the versions of the libraries that appear across many services (Jackson,
 Log4j, the PostgreSQL driver, Kafka client, etc.) to versions that clear known
 security advisories. A service that imports this BOM stops declaring those versions
-itself — so we patch a vulnerability **once, here**, bump the BOM version, and every
-service picks it up on its next build.
+itself — so we patch a vulnerability **once, here** and bump the BOM version. Note the import is
+**pinned**: a service picks up a new BOM only when its own `<version>` is bumped, so
+publishing a BOM release is step one of a rollout, not the whole of it.
 
 Coordinates: `com.maritrace:maritrace-dependencies` · packaging `pom`.
 
@@ -79,7 +80,7 @@ The `<repository>` `id` must match the `<server>` `id` in `settings.xml`.
     <dependency>
       <groupId>com.maritrace</groupId>
       <artifactId>maritrace-dependencies</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.3</version>
       <type>pom</type>
       <scope>import</scope>
     </dependency>
@@ -132,6 +133,11 @@ services use.
 | `org.apache.kafka:kafka-clients` | 3.9.2 | advisory-clear |
 | `commons-io:commons-io` | 2.20.0 | matches what Spring Boot 4.0.5 ships, so the BOM never downgrades it |
 | `com.google.guava:guava` | 33.4.8-jre | advisory-clear |
+| `org.json:json` | 20250517 | advisory-clear |
+| `org.apache.commons:commons-lang3` | 3.20.0 | advisory-clear |
+| `com.google.code.gson:gson` | 2.14.0 | advisory-clear |
+| `org.apache.zookeeper:zookeeper` | 3.9.5 | critical advisory; **see changelog before bumping a live consumer** |
+| `junit:junit` | 4.13.2 | advisory-clear; test scope only |
 
 Add a library here when it's shared by several services and needs central control.
 
