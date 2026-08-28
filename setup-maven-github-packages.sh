@@ -13,7 +13,13 @@ set -euo pipefail
 
 SERVER_ID="github-maritrace"
 PKG_URL="https://maven.pkg.github.com/MariTrace/maritrace_dependancies_maritrace-dependencies"
-BOM_ARTIFACT="com.maritrace:maritrace-dependencies:0.0.2:pom"
+# Derive the version from the pom next to this script rather than hard-coding it,
+# so the verification step cannot silently check a stale release. Falls back to a
+# literal only if the pom is not alongside (e.g. the script was copied elsewhere).
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+BOM_VERSION="$(sed -n 's:.*<version>\(.*\)</version>.*:\1:p' "${SCRIPT_DIR}/pom.xml" 2>/dev/null | head -1)"
+BOM_VERSION="${BOM_VERSION:-0.0.3}"
+BOM_ARTIFACT="com.maritrace:maritrace-dependencies:${BOM_VERSION}:pom"
 M2="${HOME}/.m2"
 SETTINGS="${M2}/settings.xml"
 
